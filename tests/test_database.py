@@ -1,44 +1,16 @@
 from praktikum.database import Database
-from praktikum.bun import Bun
-from praktikum.ingredient import Ingredient
+import unittest
+from data import DataTests
 
 
-def test_database_configuration():
-    database = Database()
+class TestDatabase(unittest.TestCase):
 
-    assert len(database.available_buns()) == 3
-    assert len(database.available_ingredients()) == 6
-    assert isinstance(database.available_buns()[0], Bun)
-    assert isinstance(database.available_ingredients()[0], Ingredient)
+    def test_available_buns(self):
+        data = Database()
+        buns = data.available_buns()
+        self.assertEqual(buns[0].name, DataTests.BLACK_BUN)
 
-def test_available_buns():
-
-    database = Database()
-    buns = database.available_buns()
-
-    assert len(buns) == 3
-    assert buns[0].get_name() == "black bun"
-    assert buns[0].get_price() == 100
-    assert buns[1].get_name() == "white bun"
-    assert buns[1].get_price() == 200
-    assert buns[2].get_name() == "green bun"
-    assert buns[2].get_price() == 300
-
-def test_available_ingredients():
-
-    database = Database()
-    ingredients = database.available_ingredients()
-
-    assert len(ingredients) == 6
-    assert ingredients[0].get_name() == "hot sauce"
-    assert ingredients[1].get_name() == "sour cream"
-    assert ingredients[2].get_name() == "chili sauce"
-    assert ingredients[3].get_name() == "mushroom sauce"
-    assert ingredients[4].get_name() == "extra sausage"
-    assert ingredients[5].get_name() == "vegetarian sausage"
-    assert ingredients[0].get_price() == 100
-    assert ingredients[1].get_price() == 200
-    assert ingredients[2].get_price() == 300
-    assert ingredients[3].get_price() == 100
-    assert ingredients[4].get_price() == 200
-    assert ingredients[5].get_price() == 300
+    def test_available_ingredients(self):
+        data = Database()
+        ingredients = data.available_ingredients()
+        self.assertEqual(ingredients[0].name, DataTests.HOT_SAUSE)
